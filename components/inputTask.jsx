@@ -1,7 +1,7 @@
 
 export default function inputTask(props) {
   return (
-    <div className="input-group">
+    <div className="input-group mb-4">
       <input
         type="text"
         className="form-control"
@@ -13,7 +13,7 @@ export default function inputTask(props) {
         className="form-select"
         value={props.priority} 
         onChange={(e) => props.setPriority(e.target.value)}
-      >
+        >
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
