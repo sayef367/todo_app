@@ -9,7 +9,9 @@ export default function EditTask({data, updateTask}) {
   },[data]);
 
   const handelSubmit = () => {
+    if(todo === null) return
     updateTask(todo);
+    setTodo(null)
   };
 
   return (
@@ -40,6 +42,16 @@ export default function EditTask({data, updateTask}) {
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
                   <option value="high">High</option>
+                </select>
+              </div>
+              <div className="mb-3">
+                <select 
+                  className="form-select"
+                  value={todo == null ? 'completed' : todo.completed} 
+                  onChange={(e) => setTodo({...todo, completed: e.target.value})}
+                  >
+                  <option value="Completed">Completed</option>
+                  <option value="Incomplete">Incomplete</option>
                 </select>
               </div>
             </div>

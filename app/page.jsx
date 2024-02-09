@@ -6,6 +6,7 @@ import { useState } from 'react';
 export default function Home() {
   const [tasks, setTasks] = useState([]);
   const [taskText, setTaskText] = useState('');
+  const [completed, setCompleted] = useState('Completed');
   const [priority, setPriority] = useState('low');
 
   // add a todo
@@ -13,20 +14,11 @@ export default function Home() {
     const newTask = {
       id: Date.now(),
       text: taskText,
-      completed: false,
+      completed,
       priority
     };
     setTasks([...tasks, newTask]);
     setTaskText('');
-  };
-
-  // Mark a todo
-  const taskCompletion = (taskId) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    );
   };
 
   // Delete a todo
@@ -37,7 +29,6 @@ export default function Home() {
   // Update a todo
   const updateTask = (data) => {
     const index = tasks.findIndex(todo => todo.id === data.id);
-    console.log(index)
     if (index !== -1) {
       tasks[index] = { ...tasks[index], ...data };
       setTasks([...tasks]);
@@ -52,6 +43,8 @@ export default function Home() {
           setTaskText={setTaskText}
           priority={priority}
           setPriority={setPriority}
+          completed={completed}
+          setCompleted={setCompleted}
           addTask={addTask}
         />
       <div className="row">
@@ -60,12 +53,11 @@ export default function Home() {
           Total Tasks: {tasks.length}
         </h4>
         <h4 className="col-lg-6 col-sm-12 text-lg-start text-center mb-4">
-          Completed Tasks: {tasks.filter((task) => task.completed).length}
+          Completed Tasks: {tasks.filter((task) => task.completed === 'Completed').length}
         </h4>
         {tasks.length === 0 ? <h3 className="mt-4">Empty Todos</h3> : ''}
         <ViewTask 
           tasks={tasks}
-          taskCompletion={taskCompletion}
           deleteTask={deleteTask}
           updateTask={updateTask}
         />

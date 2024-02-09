@@ -1,3 +1,4 @@
+'use client'
 
 export default function inputTask(props) {
   return (
@@ -17,6 +18,14 @@ export default function inputTask(props) {
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
+      </select>
+      <select 
+        className="form-select"
+        value={props.completed} 
+        onChange={(e) => props.setCompleted(e.target.value)}
+        >
+        <option value="Completed">Completed</option>
+        <option value="Incomplete">Incomplete</option>
       </select>
       <button 
         className="btn btn-primary"

@@ -1,12 +1,18 @@
+'use client'
 import { useState } from "react";
 import EditTask from "./editTask";
 
-export default function viewTask({tasks, taskCompletion, deleteTask, updateTask}) {
+export default function viewTask({tasks, deleteTask, updateTask}) {
   const [update, setUpdate] = useState();
+
   const priorityColor = (priority) => {
     if(priority == 'low') return 'bg-secondary p-2 text-dark bg-opacity-10';
     if(priority == 'medium') return 'bg-secondary p-2 text-dark bg-opacity-25';
     if(priority == 'high') return 'bg-secondary p-2 text-dark bg-opacity-50';
+  };
+  const completedColor = (completed) => {
+    if(completed == 'Completed') return 'text-success';
+    if(completed == 'Incomplete') return 'text-warning';
   };
 
   return (
@@ -18,15 +24,13 @@ export default function viewTask({tasks, taskCompletion, deleteTask, updateTask}
         >
           <div className={`card p-3 ${priorityColor(task.priority)}`}>
             <span className="mb-2">{task.text}</span>
+            <div>
+              Task status: 
+              <span className={`${completedColor(task.completed)} fw-light ms-2`}>
+                {task.completed}
+              </span>
+            </div>
             <div className="mt-2">
-              <button 
-                className={`btn 
-                  ${task.completed ? 'btn-outline-warning' : 'btn-outline-success'}
-                  btn-sm me-2
-                `}
-                onClick={() => taskCompletion(task.id)}>
-                {task.completed ? 'Undo' : 'Complete'}
-              </button>
               <button 
                 className="btn btn-outline-dark btn-sm me-2"
                 data-bs-toggle="modal" 
